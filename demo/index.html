@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">
+
+    <title>jquery.musikp.js</title>
+    <meta name="description" content="jquery.musikp.js demo page">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontawesome/4.6.0/css/font-awesome.min.css">
+    <style>
+        ul, li {
+            list-style-type: none;
+        }
+    </style>
+
+    <!-- Step 1. Insert `jquery.musikp.min.css`  -->
+    <link rel="stylesheet" href="../dist/jquery.musikp.min.css">
+
+</head>
+<body>
+
+    <!-- Step 2. Create an JSON object containing soundtracks and albums  -->
+    <script>
+        var playlist = {
+            "albums": [
+                {
+                    "id": "uniqid001",
+                    "artist": "Albare",
+                    "title": "The Road Ahead",
+                    "cover": "the-road-ahead/cover.jpg",
+                    "itunes": "https://itunes.apple.com/us/album/the-road-ahead/id725427406",
+                    "amazon": "http://www.amazon.com/The-Road-Ahead-Albare/dp/B00BJB2DXQ"
+                }
+            ],
+            "tracks": [
+                {
+                    "id": "uniqid002",
+                    "album_id": "uniqid001",
+                    "track_number": "1",
+                    "artist": "Albare",
+                    "title": "Road Ahead part A",
+                    "mp3": "the-road-ahead/road-ahead-pt-a.mp3",
+                    "amazon": "https://www.amazon.com/gp/product/B00FYI462G?ie=UTF8&ref_=pm_ws_tlw_trk1"
+                },
+                {
+                    "id": "uniqid003",
+                    "album_id": "uniqid001",
+                    "track_number": "3",
+                    "artist": "Albare",
+                    "title": "Give me 5",
+                    "mp3": "the-road-ahead/give-me-5.mp3",
+                    "amazon": "https://www.amazon.com/gp/product/B00FYI47M0?ie=UTF8&ref_=pm_ws_tlw_trk3"
+                },
+                {
+                    "id": "uniqid004",
+                    "album_id": "uniqid001",
+                    "track_number": "5",
+                    "artist": "Albare",
+                    "title": "The Gift",
+                    "mp3": "the-road-ahead/the-gift.mp3",
+                    "amazon": "https://www.amazon.com/gp/product/B00FYI49LY?ie=UTF8&ref_=pm_ws_tlw_trk5"
+                },
+                {
+                    "id": "uniqid005",
+                    "track_number": "1",
+                    "artist": "Albare",
+                    "title": "Road Ahead part A 2",
+                    "mp3": "the-road-ahead/road-ahead-pt-a.mp3",
+                    "amazon": "https://www.amazon.com/gp/product/B00FYI462G?ie=UTF8&ref_=pm_ws_tlw_trk1"
+                },
+                {
+                    "id": "uniqid006",
+                    "track_number": "3",
+                    "artist": "Albare",
+                    "title": "Give me 5 2",
+                    "mp3": "the-road-ahead/give-me-5.mp3",
+                    "amazon": "https://www.amazon.com/gp/product/B00FYI47M0?ie=UTF8&ref_=pm_ws_tlw_trk3"
+                },
+                {
+                    "id": "uniqid007",
+                    "track_number": "5",
+                    "artist": "Albare",
+                    "title": "The Gift 2",
+                    "mp3": "the-road-ahead/the-gift.mp3",
+                    "amazon": "https://www.amazon.com/gp/product/B00FYI49LY?ie=UTF8&ref_=pm_ws_tlw_trk5"
+                }
+            ]
+        };
+    </script>
+
+    <!-- Step 3. Add `data-musikp="id to play"` to any html tag  -->
+    <a data-musikp="uniqid001" href="#">Play full album:</a><br>
+    <ul>
+        <li><a data-musikp="uniqid002" href="#">Listen Road Ahead part A</a></li>
+        <li><a data-musikp="uniqid003" href="#">Listen Give me 5</a></li>
+        <li><a data-musikp="uniqid004" href="#">The Gift</a></li>
+    </ul>
+
+    <div>Standalone tracks:</div>
+    <ul>
+        <li><a data-musikp="uniqid005" href="#">Listen Road Ahead part A 2</a></li>
+        <li><a data-musikp="uniqid006" href="#">Listen Give me 5 2</a></li>
+        <li><a data-musikp="uniqid007" href="#">The Gift 2</a></li>
+    </ul>
+
+    <!-- Step 4. Insert `jquery.musikp.min.js` and the required libs  -->
+    <script src="https://cdn.jsdelivr.net/g/modernizr@2.8.3,jquery@2.2.3"></script>
+    <script src="../dist/jquery.musikp.js"></script>
+
+    <!-- Step 5. Initiate the plugin with options  -->
+    <script>
+        $(function() {
+            $('body').musikp({
+                playlist: playlist,
+                autoPlay: false,
+                mode: 'gui', // gui, api, auto
+                debug: true,
+                playBt: '<i class="fa fa-play" aria-hidden="true"></i>',
+                pauseBt: '<i class="fa fa-pause" aria-hidden="true"></i>',
+                prevBt: '<i class="fa fa-step-backward" aria-hidden="true"></i>',
+                nextBt: '<i class="fa fa-step-forward" aria-hidden="true"></i>',
+                expandBt: '<i class="fa fa-chevron-up" aria-hidden="true"></i>'
+            });
+        });
+    </script>
+
+</body>
+</html>

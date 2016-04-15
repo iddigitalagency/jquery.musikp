@@ -1,0 +1,123 @@
+
+// Vars
+
+$musikp_background-color: #131313;
+$musikp_text-color: #fffffd;
+$musikp_hover-color: yellow;
+$musikp_player-height: 34px;
+$musikp_class-name: 'musikp';
+$musikp_transition-time: .3s;
+
+
+// Mixins
+
+@mixin musikp_transition($transition...) {
+	-moz-transition:    $transition;
+	-o-transition:      $transition;
+	-webkit-transition: $transition;
+	transition:         $transition;
+}
+
+
+// Sass
+
+.#{$musikp_class-name}-gui {
+	@include musikp_transition(opacity $musikp_transition-time*2 ease);
+	z-index: 9999999;
+	opacity: 0;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100vw;
+	color: $musikp_text-color;
+	font-size: 1rem;
+
+	[data-action], [data-musikp] {
+		color: $musikp_text-color;
+		text-decoration: none;
+		cursor: pointer;
+
+		&:hover {
+			color: $musikp_hover-color;
+		}
+	}
+
+	ul, li {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	&.#{$musikp_class-name}-loaded {
+		opacity: 1;
+	}
+
+	.#{$musikp_class-name}-wrapper {
+		width: 100%;
+		max-width: 65rem;
+		height: 100%;
+		margin: auto;
+		position: relative;
+		display: table;
+
+		& > div {
+			display: table-cell;
+			text-align: center;
+		}
+	}
+
+	.#{$musikp_class-name}-player {
+		z-index: 9999999;
+		position: absolute;
+		width: 100%;
+		height: $musikp_player-height;
+		bottom: 0;
+		left: 0;
+		background-color: $musikp_background-color;
+
+		.#{$musikp_class-name}-button {
+			width: $musikp_player-height;
+			line-height: $musikp_player-height;
+			height: $musikp_player-height;
+			font-weight: bold;
+
+			&.#{$musikp_class-name}-button-xl {
+				font-size: 1.5em;
+			}
+
+			&.#{$musikp_class-name}-button-xs {
+				font-size: 0.9em;
+			}
+
+		}
+	}
+
+	.#{$musikp_class-name}-tracklist {
+		@include musikp_transition(all $musikp_transition-time*2 ease);
+		position: absolute;
+		width: 100%;
+		z-index: 9999998;
+		left: 0;
+		bottom: $musikp_player-height;
+		height: 0;
+		overflow-y: auto;
+		overflow-x: hidden;
+		background-color: lighten($musikp_background-color, 10%);
+
+		.#{$musikp_class-name}-cover {
+			width: 150px;
+			height: 150px;
+			background-position: center center;
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+	}
+
+	&.expanded {
+
+		.#{$musikp_class-name}-tracklist {
+			height: 50vh;
+		}
+
+	}
+}

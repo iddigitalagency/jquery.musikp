@@ -1,0 +1,39 @@
+{
+	"name": "jquery.musikp",
+	"version": "1.0.0",
+	"description": "Responsive jQuery plugin for generating a nice Html5 music player.",
+	"homepage": "https://github.com/maoosi/jquery.musikp",
+	"main": "dist/jquery.musikp.min.js",
+
+	"author": "maoosi <hello@sylvainsimao.fr>",
+	"license": "MIT",
+
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/maoosi/jquery.musikp.git"
+	},
+	"bugs": {
+		"url": "https://github.com/maoosi/jquery.musikp/issues"
+	},
+
+	"keywords": [
+		"music",
+		"sound",
+		"soundtrack",
+		"player",
+		"jquery",
+		"plugin",
+		"mp3",
+		"ogg"
+	],
+
+	"devDependencies": {
+		"gulp": "^3.9.1",
+		"gulp-cssnano": "^2.1.1",
+		"gulp-plumber": "^1.1.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-sass": "^2.2.0",
+		"gulp-uglify": "^1.5.3",
+		"gulp-watch": "^4.3.5"
+	}
+}
