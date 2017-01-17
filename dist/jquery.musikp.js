@@ -23,7 +23,9 @@
 			prevBt: '<<',
 			expandBt: '^',
 			debug: false,
-			autoPlay: false
+			autoPlay: false,
+			onPause: function () {},
+			onPlay: function () {}
 		};
 
 	// Bind global events
@@ -179,9 +181,9 @@
 										'<span data-live="artist">Unknown</span> - <span data-live="title">Unknown</span> &nbsp; | &nbsp; ' +
 										'<span data-live="timer">00:00</span> / <span data-live="duration">00:00</span>' +
 									'</div>' +
-									'<div class="$class-button $class-button-xs">' +
-										'$expand' +
-									'</div>' +
+									// '<div class="$class-button $class-button-xs">' +
+									// 	'$expand' +
+									// '</div>' +
 
 								'</div>' +
 							'</div>';
@@ -432,6 +434,8 @@
 					_updateGUILive.apply(this, [trackInfo]);
 					this.debug('Play: ' + trackInfo.title + '');
 
+					this.settings.onPlay(this.getCurrentSoundtrackId());
+
 				} else {
 
 					var albumInfo = this.getAlbumInfo(id);
@@ -441,6 +445,8 @@
 					} else {
 						this.play('current');
 					}
+
+					this.settings.onPlay(this.getCurrentSoundtrackId());
 
 				}
 
@@ -453,12 +459,16 @@
 						$('.' + this.settings.classPrefix + '-gui')
 							.find('[data-action="play"]')
 							.html(this.settings.pauseBt)
+
+						this.settings.onPlay(this.getCurrentSoundtrackId());
+
 					} else {
 						this.play( this.getCurrentSoundtrackId() );
 					}
 				}
 
 			}
+
 		},
 
 		// Generic pause button
@@ -466,11 +476,15 @@
 
 			this.audio.pause();
 
+			var trackId = this.getCurrentSoundtrackId();
+
 			$('.'+ this.settings.classPrefix +'-gui')
 				.find('[data-action="play"]')
 				.html(this.settings.playBt);
 
 			this.debug('Paused');
+
+			this.settings.onPause(trackId);
 
 		},
 
