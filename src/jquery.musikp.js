@@ -23,7 +23,9 @@
 			prevBt: '<<',
 			expandBt: '^',
 			debug: false,
-			autoPlay: false
+			autoPlay: false,
+			onPause: function () {},
+			onPlay: function () {}
 		};
 
 	// Bind global events
@@ -163,11 +165,18 @@
 		 * $expand : Expand player button
 		 */
 
+		// Get first track info
+		var initial_track_info = this.getTrackInfo(this.tracks[0].id);
+
+		_createAudioElem.apply(this);
+
+		this.audio.src = initial_track_info.mp3;
+
 		var default_tpl = 	'<div class="$class-player">' +
 								'<div class="$class-wrapper">' +
 
 									'<div class="$class-button">' +
-										'$prev' +
+										                        '$prev' +
 									'</div>' +
 									'<div class="$class-button $class-button-xl">' +
 										'$play' +
@@ -176,12 +185,12 @@
 										'$next' +
 									'</div>' +
 									'<div class="$class-timer">' +
-										'<span data-live="artist">Unknown</span> - <span data-live="title">Unknown</span> &nbsp; | &nbsp; ' +
+										'<span data-live="artist">' + initial_track_info.artist + '</span> - <span data-live="title">' + initial_track_info.title + '</span> &nbsp; | &nbsp; ' +
 										'<span data-live="timer">00:00</span> / <span data-live="duration">00:00</span>' +
 									'</div>' +
-									'<div class="$class-button $class-button-xs">' +
-										'$expand' +
-									'</div>' +
+									// '<div class="$class-button $class-button-xs">' +
+									// 	'$expand' +
+									// '</div>' +
 
 								'</div>' +
 							'</div>';
@@ -432,6 +441,8 @@
 					_updateGUILive.apply(this, [trackInfo]);
 					this.debug('Play: ' + trackInfo.title + '');
 
+					this.settings.onPlay(this.getCurrentSoundtrackId());
+
 				} else {
 
 					var albumInfo = this.getAlbumInfo(id);
@@ -441,6 +452,8 @@
 					} else {
 						this.play('current');
 					}
+
+					this.settings.onPlay(this.getCurrentSoundtrackId());
 
 				}
 
@@ -453,12 +466,16 @@
 						$('.' + this.settings.classPrefix + '-gui')
 							.find('[data-action="play"]')
 							.html(this.settings.pauseBt)
+
+						this.settings.onPlay(this.getCurrentSoundtrackId());
+
 					} else {
 						this.play( this.getCurrentSoundtrackId() );
 					}
 				}
 
 			}
+
 		},
 
 		// Generic pause button
@@ -466,11 +483,15 @@
 
 			this.audio.pause();
 
+			var trackId = this.getCurrentSoundtrackId();
+
 			$('.'+ this.settings.classPrefix +'-gui')
 				.find('[data-action="play"]')
 				.html(this.settings.playBt);
 
 			this.debug('Paused');
+
+			this.settings.onPause(trackId);
 
 		},
 

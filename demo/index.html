@@ -122,7 +122,13 @@
                 pauseBt: '<i class="fa fa-pause" aria-hidden="true"></i>',
                 prevBt: '<i class="fa fa-step-backward" aria-hidden="true"></i>',
                 nextBt: '<i class="fa fa-step-forward" aria-hidden="true"></i>',
-                expandBt: '<i class="fa fa-chevron-up" aria-hidden="true"></i>'
+                expandBt: '<i class="fa fa-chevron-up" aria-hidden="true"></i>',
+                onPause: function (trackId) {
+                    console.log('Do something with the track id when paused', trackId);
+                },
+                onPlay: function (trackId) {
+                    console.log('Do something with the track id when playing', trackId);
+                }
             });
         });
     </script>
