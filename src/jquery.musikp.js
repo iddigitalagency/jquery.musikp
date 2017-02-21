@@ -31,9 +31,20 @@
 	// Bind global events
 	function _bindEvents() {
 
-		this.$elem.find('[data-musikp]').on('click', function(e) {
+		this.$elem.on('click', '[data-musikp]', function(e) {
+			if (e.isDefaultPrevented()) {
+				return;
+			}
+
 			e.preventDefault();
-			this.play( $( e.target ).data('musikp') );
+
+			var trackToPlay = $(e.target).closest('[data-musikp]').attr('data-musikp');
+
+			if(this.currentSoundtrack === trackToPlay && !this.audio.paused) {
+				this.pause();
+			} else {
+				this.play(trackToPlay);
+			}
 		}.bind(this));
 
 	}
